@@ -7,26 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.TFG.fragments.HomeFragment"
+        android:name="fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.TFG.fragments.ContactFragment"
+        android:name="fragments.ContactsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.TFG.fragments.SearchFragment"
+        android:name="fragments.SearchFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_search" />
 
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.TFG.fragments.SettingsFragment"
-
+        android:name="fragments.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 </navigation>

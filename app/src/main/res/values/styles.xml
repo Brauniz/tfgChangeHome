@@ -1,7 +1,7 @@
 <resources>
 
-    <!-- Tema de tu app que hereda de AppCompat -->
-    <style name="Theme.ChangeHome" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Tema de tu app que hereda de MaterialComponents -->
+    <style name="Theme.TFG" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Personaliza los colores si lo deseas -->
         <item name="colorPrimary">@color/primario</item>
         <item name="colorPrimaryDark">@color/terciario</item>

@@ -22,18 +22,34 @@ import java.util.List;
 import entidades.Vivienda;
 
 public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.ViviendaViewHolder> {
+
     private List<Vivienda> listaViviendas;
     private Context context;
+    private OnViviendaClickListener listener;
 
+    // Interface para manejar clicks (opcional)
+    public interface OnViviendaClickListener {
+        void onViviendaClick(Vivienda vivienda);
+        void onContactarClick(Vivienda vivienda);
+    }
+
+    // Constructor básico
     public ViviendaAdapter(List<Vivienda> listaViviendas, Context context) {
         this.listaViviendas = listaViviendas;
         this.context = context;
     }
 
+    // Constructor con listener
+    public ViviendaAdapter(List<Vivienda> listaViviendas, Context context, OnViviendaClickListener listener) {
+        this.listaViviendas = listaViviendas;
+        this.context = context;
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ViviendaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.viviendas_layout, parent, false);
         return new ViviendaViewHolder(view);
     }
@@ -41,46 +57,49 @@ public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.Vivien
     @Override
     public void onBindViewHolder(@NonNull ViviendaViewHolder holder, int position) {
         Vivienda vivienda = listaViviendas.get(position);
-        
+
         // Configurar textos
         holder.txtTitulo.setText(vivienda.getTitulo());
         holder.txtInfo.setText(vivienda.getSubtitulo());
         holder.txtDescripcion.setText(vivienda.getDescripcion());
-        
-        // Cargar imagen con Glide (necesitarás agregar Glide a tu build.gradle)
+
+        // Cargar imagen con Glide
         if (vivienda.getImagen() != null && !vivienda.getImagen().isEmpty()) {
             Glide.with(context)
                     .load(vivienda.getImagen())
-                    .placeholder(R.drawable.hunter) // imagen por defecto
-                    .error(R.drawable.error_icon) // imagen de error
+                    .placeholder(R.drawable.hunter) // imagen mientras carga
+                    .error(R.drawable.error_icon) // imagen si hay error
+                    .centerCrop()
                     .into(holder.imgVivienda);
         } else {
-            // Si no hay imagen, mostrar placeholder
+            // Si no hay imagen, mostrar imagen por defecto
             holder.imgVivienda.setImageResource(R.drawable.hunter);
         }
-        
+
         // Configurar botón contactar
         holder.btnContactar.setOnClickListener(v -> {
-            // Aquí puedes implementar la lógica para contactar
-            // Por ejemplo, abrir WhatsApp, enviar email, etc.
-            Toast.makeText(context, "Contactar para: " + vivienda.getTitulo(), Toast.LENGTH_SHORT).show();
-            
-            // Ejemplo: abrir WhatsApp (opcional)
-            // abrirWhatsApp(vivienda);
+            if (listener != null) {
+                listener.onContactarClick(vivienda);
+            } else {
+                // Comportamiento por defecto
+                mostrarContacto(vivienda);
+            }
         });
-        
-        // Click en toda la tarjeta para ver detalles (opcional)
+
+        // Click en toda la tarjeta
         holder.itemView.setOnClickListener(v -> {
-            // Aquí puedes abrir una actividad de detalle de la vivienda
-            // Intent intent = new Intent(context, DetalleViviendaActivity.class);
-            // intent.putExtra("vivienda", vivienda);
-            // context.startActivity(intent);
+            if (listener != null) {
+                listener.onViviendaClick(vivienda);
+            } else {
+                // Comportamiento por defecto
+                mostrarDetalles(vivienda);
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listaViviendas.size();
+        return listaViviendas != null ? listaViviendas.size() : 0;
     }
 
     // Método para actualizar la lista
@@ -89,17 +108,17 @@ public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.Vivien
         notifyDataSetChanged();
     }
 
-    // Método opcional para abrir WhatsApp
-    private void abrirWhatsApp(Vivienda vivienda) {
-        try {
-            String mensaje = "Hola, estoy interesado en: " + vivienda.getTitulo();
-            String url = "https://wa.me/?text=" + Uri.encode(mensaje);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(context, "No se pudo abrir WhatsApp", Toast.LENGTH_SHORT).show();
-        }
+    // Métodos privados para comportamiento por defecto
+    private void mostrarContacto(Vivienda vivienda) {
+        Toast.makeText(context,
+                "Contactar por: " + vivienda.getTitulo(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void mostrarDetalles(Vivienda vivienda) {
+        Toast.makeText(context,
+                "Ver detalles de: " + vivienda.getTitulo(),
+                Toast.LENGTH_SHORT).show();
     }
 
     // ViewHolder
@@ -110,7 +129,7 @@ public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.Vivien
 
         public ViviendaViewHolder(@NonNull View itemView) {
             super(itemView);
-            
+
             imgVivienda = itemView.findViewById(R.id.img_vivienda);
             txtTitulo = itemView.findViewById(R.id.txt_titulo);
             txtInfo = itemView.findViewById(R.id.txt_info);

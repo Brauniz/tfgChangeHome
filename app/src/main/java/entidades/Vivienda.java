@@ -13,6 +13,7 @@ public class Vivienda implements Serializable {
     private String descripcion;
     private String ciudad;     // Ciudad donde se ubica la vivienda
     private String creadorId;  // ID del usuario que creó la vivienda
+    private long createdAt;    // Timestamp de creación
 
     // Constructor vacío requerido por Firebase
     public Vivienda() {
@@ -26,6 +27,7 @@ public class Vivienda implements Serializable {
         this.descripcion = descripcion;
         this.ciudad = ciudad;
         this.creadorId = creadorId;
+        this.createdAt = System.currentTimeMillis();
     }
 
     // Getters y Setters
@@ -85,6 +87,14 @@ public class Vivienda implements Serializable {
         this.creadorId = creadorId;
     }
 
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "Vivienda{" +
@@ -95,6 +105,7 @@ public class Vivienda implements Serializable {
                 ", descripcion='" + descripcion + '\'' +
                 ", ciudad='" + ciudad + '\'' +
                 ", creadorId='" + creadorId + '\'' +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

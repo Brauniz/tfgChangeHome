@@ -104,7 +104,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             imgProfile = itemView.findViewById(R.id.imgProfile);
             txtName = itemView.findViewById(R.id.txtName);
             txtPhone = itemView.findViewById(R.id.txtPhone);
-            imgChat = itemView.findViewById(R.id.imgChat);
+            imgChat = itemView.findViewById(R.id.fab);
         }
     }
 }

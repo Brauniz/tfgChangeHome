@@ -54,7 +54,7 @@
                 android:fontFamily="@font/fredoka_one"
                 android:hint="Mail"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/black"
+                android:textColor="@color/acentuado"
                 android:textColorHint="@color/acentuado"
                 android:textSize="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
