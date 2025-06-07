@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_unselected"
+        android:title="" />
+    <item
+        android:id="@+id/nav_customers"
+        android:icon="@drawable/ic_person_unselected"
+        android:title="" />
+    <item
+        android:id="@+id/nav_add"
+        android:icon="@drawable/add_button"
+        android:title="" />
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_lupa_grey"
+        android:title="" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/unselected_settings"
+        android:title="" />
+
+</menu>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "846719226738",
+    "project_id": "changehome-df3bf",
+    "storage_bucket": "changehome-df3bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846719226738:android:589ac9b38f4b30290ec3eb",
+        "android_client_info": {
+          "package_name": "com.example.changehome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlowtXr-MWt4Dd-A8exuYNSt6JMfEy-Xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846719226738:android:f6075d2f0e0e60bb0ec3eb",
+        "android_client_info": {
+          "package_name": "com.example.tfg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlowtXr-MWt4Dd-A8exuYNSt6JMfEy-Xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
