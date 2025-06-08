@@ -74,7 +74,6 @@
                 android:layout_marginTop="46dp"
                 android:background="@drawable/contactar"
                 android:backgroundTint="@color/black"
-
                 android:paddingHorizontal="12dp" />
         </LinearLayout>
     </LinearLayout>
