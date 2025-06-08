@@ -3,6 +3,7 @@ package adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.activities.MainActivity;
 import com.example.activities.R;
+
+import fragments.ContactsFragment;
 
 import java.util.List;
 
@@ -81,8 +87,8 @@ public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.Vivien
             if (listener != null) {
                 listener.onContactarClick(vivienda);
             } else {
-                // Comportamiento por defecto
-                mostrarContacto(vivienda);
+                // Comportamiento por defecto: abrir ContactActivity
+                abrirContactActivity(vivienda);
             }
         });
 
@@ -109,10 +115,28 @@ public class ViviendaAdapter extends RecyclerView.Adapter<ViviendaAdapter.Vivien
     }
 
     // Métodos privados para comportamiento por defecto
-    private void mostrarContacto(Vivienda vivienda) {
-        Toast.makeText(context,
-                "Contactar por: " + vivienda.getTitulo(),
-                Toast.LENGTH_SHORT).show();
+    private void abrirContactActivity(Vivienda vivienda) {
+        // Usar el método de MainActivity para navegar
+        if (context instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) context;
+            mainActivity.navigateToContactsWithUser(vivienda.getCreadorId());
+        } else {
+            // Si no es MainActivity, usar el método anterior
+            if (context instanceof AppCompatActivity) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+
+                Bundle bundle = new Bundle();
+                bundle.putString("specificUserId", vivienda.getCreadorId());
+
+                ContactsFragment contactsFragment = new ContactsFragment();
+                contactsFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, contactsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        }
     }
 
     private void mostrarDetalles(Vivienda vivienda) {

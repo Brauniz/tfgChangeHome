@@ -66,12 +66,12 @@
         android:id="@+id/emptyStateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No se encontraron viviendas"
+        android:text="Ingresa una ciudad para buscar viviendas"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:gravity="center"
         android:layout_marginTop="32dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:fontFamily="@font/fredoka_one" />
 
 </LinearLayout>

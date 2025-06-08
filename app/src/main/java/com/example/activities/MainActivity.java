@@ -104,6 +104,28 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "Error al verificar configuraciones: " + e.getMessage());
                 });
     }
+    // Agregar este método en tu MainActivity:
+
+    public void navigateToContactsWithUser(String userId) {
+        // Crear el ContactsFragment con el usuario específico
+        Bundle bundle = new Bundle();
+        bundle.putString("specificUserId", userId);
+
+        ContactsFragment contactsFragment = new ContactsFragment();
+        contactsFragment.setArguments(bundle);
+
+        // Cambiar al fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, contactsFragment)
+                .addToBackStack(null)
+                .commit();
+
+        // Actualizar el BottomNavigation para mostrar el item correcto
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_menu);
+        bottomNav.setSelectedItemId(R.id.nav_customers);
+
+        currentFragment = contactsFragment;
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

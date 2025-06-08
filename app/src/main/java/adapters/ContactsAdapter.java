@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.activities.ChatActivity;
 import com.example.activities.R;
 
 import java.util.List;
@@ -44,40 +46,46 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         Contact contact = contactsList.get(position);
-        
+
         // Establecer nombre
         holder.txtName.setText(contact.getName());
-        
+
         // Establecer email (en lugar de teléfono)
         holder.txtPhone.setText(contact.getEmail());
-        
+
         // Cargar imagen de perfil
         if (contact.getProfileImageUrl() != null && !contact.getProfileImageUrl().isEmpty()) {
             Glide.with(context)
-                .load(contact.getProfileImageUrl())
-                .placeholder(R.drawable.hunter) // Asegúrate de tener esta imagen
-                .error(R.drawable.error_icon)
-                .circleCrop()
-                .into(holder.imgProfile);
+                    .load(contact.getProfileImageUrl())
+                    .placeholder(R.drawable.hunter) // Asegúrate de tener esta imagen
+                    .error(R.drawable.error_icon)
+                    .circleCrop()
+                    .into(holder.imgProfile);
         } else {
             // Si no hay imagen, mostrar imagen por defecto o inicial del nombre
             holder.imgProfile.setImageResource(R.drawable.hunter);
-            
+
             // Opcional: Puedes crear un drawable con la inicial del nombre
             // setInitialImage(holder.imgProfile, contact.getName());
         }
-        
+
         // Manejar click en el item completo
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onContactClick(contact);
+            } else {
+                // Abrir chat por defecto
+                openChat(contact);
             }
         });
-        
+
         // Manejar click en el icono de chat específicamente
         holder.imgChat.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onContactClick(contact);
+            } else {
+                // Abrir chat
+                openChat(contact);
             }
         });
     }
@@ -93,6 +101,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
         notifyDataSetChanged();
     }
 
+    private void openChat(Contact contact) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra("receiverId", contact.getUid());
+        intent.putExtra("receiverName", contact.getName());
+        context.startActivity(intent);
+    }
+
     static class ContactViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProfile;
         TextView txtName;
@@ -104,7 +119,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             imgProfile = itemView.findViewById(R.id.imgProfile);
             txtName = itemView.findViewById(R.id.txtName);
             txtPhone = itemView.findViewById(R.id.txtPhone);
-            imgChat = itemView.findViewById(R.id.fab);
+            imgChat = itemView.findViewById(R.id.imgChat);
         }
     }
 }

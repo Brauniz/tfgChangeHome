@@ -7,6 +7,33 @@
     android:background="@color/terciario">
 
     <!-- Header del Chat -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/flecha_atras"
+            app:backgroundTint="@color/transparente"
+            app:tint="@android:color/white"
+            app:maxImageSize="40dp"/>
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/fredoka_one"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <!-- RecyclerView para los mensajes -->
     <androidx.recyclerview.widget.RecyclerView
