@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
 
     // Vistas
-    private FloatingActionButton fabBack;
+    private ImageButton fabBack;
     private TextView txtName;
     private RecyclerView recyclerMessages;
     private EditText etMessage;
@@ -119,8 +119,15 @@ public class ChatActivity extends AppCompatActivity {
                         Contact userContact = documentSnapshot.toObject(Contact.class);
                         if (userContact != null) {
                             currentUserName = userContact.getName();
+                        } else {
+                            currentUserName = "Usuario";
                         }
+                    } else {
+                        currentUserName = "Usuario";
                     }
+                })
+                .addOnFailureListener(e -> {
+                    currentUserName = "Usuario";
                 });
     }
 
@@ -136,7 +143,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        // Botón atrás - simplemente terminar la actividad para volver al fragment anterior
+        // Botón atrás - volver al ContactsFragment
         fabBack.setOnClickListener(v -> finish());
 
         // Botón enviar
@@ -164,6 +171,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (value != null) {
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             Message message = dc.getDocument().toObject(Message.class);
+                            message.setDocumentId(dc.getDocument().getId());
 
                             switch (dc.getType()) {
                                 case ADDED:

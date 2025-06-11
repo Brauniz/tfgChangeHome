@@ -11,27 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
+        android:gravity="start"
+        android:background="@android:color/darker_gray"
+        android:backgroundTint="@android:color/darker_gray"
+
         >
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/flecha_atras"
             app:backgroundTint="@color/transparente"
             app:tint="@android:color/white"
-            app:maxImageSize="40dp"/>
+            app:maxImageSize="48dp"/>
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/fredoka_one"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -41,9 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
+        android:padding="12dp"
         android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        />
 
     <!-- Línea separadora -->
     <View
@@ -58,7 +63,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="@android:color/white"
+        android:background="@android:color/darker_gray"
         android:gravity="center_vertical">
 
         <EditText
@@ -68,6 +73,7 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/auto_layout_horizontal"
+            android:backgroundTint="@color/white"
             android:maxLines="3"
             android:padding="12dp"
             android:textSize="16sp" />
@@ -77,6 +83,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/send_message_black"
+            android:backgroundTint="@color/white"
             android:scaleType="centerInside"
             android:padding="12dp" />
     </LinearLayout>
